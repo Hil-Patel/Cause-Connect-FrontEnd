@@ -1,13 +1,14 @@
 import React from "react";
+import logo from "../assets/hill_logo-removebg-preview.png"
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedinIn } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-900 text-white py-10">
+    <footer className="bg-[#100C33] text-white py-10">
       <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
         
         <div>
-          <h2 className="text-xl font-semibold">About CauseConnect</h2>
+          <img src={logo} alt="" className="w-24"/>
           <p className="mt-3 text-sm text-gray-300">
             Bridging the gap between NGOs and professionals to create meaningful change.
             Join us in making the world a better place.
