@@ -1,14 +1,16 @@
 import { useFormik } from 'formik';
 import { signupValidationSchema } from '../Schema/signupValidationSchema'
 import image from "../../../assets/volunteer_signup.svg"
+import {VolunteerSignUp} from "../../../ApiEndPoints/ApiCalls"
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
 
     const HandleLogInClick = () => {
-        navigate("/LogIn-Volunteer")
+        navigate("/Login-Volunteer")
     }
 
     const formik = useFormik({
@@ -26,7 +28,13 @@ const SignUpForm = () => {
         validationSchema: signupValidationSchema,
         onSubmit: async(values) => {
             console.log("Signup Form Submitted", values);
-            navigate("/")
+            const res = await VolunteerSignUp(values);
+            if(res.data.statusCode  == 201){
+                toast.success("Hurray");
+                navigate("/Login-Volunteer")
+            }else{
+                toast.error(res.data.message);
+            }
         },
     });
     return (

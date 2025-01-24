@@ -10,7 +10,7 @@ interface FormValues {
   fullName: string;
   ownerEmail: string;
   ownerPhoneNumber: string;
-  age: number;
+  age: string;
   gender: string;
   experience: string;
 }

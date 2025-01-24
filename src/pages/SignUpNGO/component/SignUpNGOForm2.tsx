@@ -3,8 +3,9 @@ import image from "../../../assets/rb_2149820257.png";
 import { SignUpNGOValidation2 } from "../schema/SignUpNGOValidation2.js"
 import upload from "../../../assets/upload-file-svgrepo-com.svg"
 import { ChangeEvent, useEffect, useRef } from "react";
-import {NGOSignUp} from "../../../ApiEndPoints/ApiCalss.js"
+import {NGOSignUp} from "../../../ApiEndPoints/ApiCalls.js"
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 type FormValues = {
   ngoName: string;
   ngoAim: string;
@@ -21,6 +22,7 @@ type FormValues = {
 };
 
 const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
+  const navigate=useNavigate()
   const inputRef = [useRef(null), useRef(null), useRef(null)];
   const formik = useFormik({
     initialValues: {
@@ -42,11 +44,16 @@ const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
     validationSchema: SignUpNGOValidation2,
     onSubmit: async(values) => {
       const formOneDetails=JSON.parse(localStorage.getItem("form1"))
+      console.log(formOneDetails);
+      
       values={...values,...formOneDetails};
+      console.log(values);
+  
       const res=await NGOSignUp(values)
       console.log(res);
       localStorage.removeItem("form1");
       toast.success("Login Successful")
+      navigate("/Login-NGO")
     },
   });
 

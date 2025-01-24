@@ -20,12 +20,11 @@ const LoginNGOForm = () => {
         },
         validationSchema:NGOloginValidationSchema,
         onSubmit: async(values) => {
-            // const res=await NGOLogin({})
-            // console.log(res);
+            const res=await NGOLogin(values)
             toast.success("Login Successful")
+            navigate("NGO/dashboard")
         },
     });
-
 
     return (
         <div className="flex justify-center items-center h-full bg-white my-20">

@@ -3,6 +3,7 @@ import { loginValidationSchema } from "../Schema/LoginValidationSchema"
 import image from "../../../assets/volunteer_login.svg"
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import {VolunteerLogin} from "../../../ApiEndPoints/ApiCalls"
 import toast from 'react-hot-toast';
 
 export const LoginForm = () => {
@@ -19,8 +20,13 @@ export const LoginForm = () => {
         },
         validationSchema: loginValidationSchema,
         onSubmit: async(values) => {
-            
-            toast.success("Login Successful")
+            const res = await VolunteerLogin(values);
+            if(res.data.statusCode==200){
+                navigate("Volunteer/dashboard");
+                toast.success("Login Successful")
+            }else{
+                toast.error(res.data.message);
+            }
         },
     });
     return (
