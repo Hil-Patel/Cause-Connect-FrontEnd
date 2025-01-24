@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Home } from '../pages/Home/Home'
 import LoginVolunteer from '../pages/LoginVolunteer/LoginVolunteer'
@@ -11,10 +11,10 @@ export const AppRoutes = () => {
     <BrowserRouter>
         <Routes>
             <Route  path="/" element={<Home/>}/>
-              <Route path='/Login-Volunteer' element={<LoginVolunteer/>}/>
-              <Route path='/SignUp-Volunteer' element={<SignUpVolunteer/>}/>
-              <Route path='/Login-NGO' element={<LoginNGO/>}/>
-              <Route path='/SignUp-NGO' element={<SignUpNGO/>}/>
+            <Route path='/Login-Volunteer' element={<LoginVolunteer/>}/>
+            <Route path='/SignUp-Volunteer' element={<SignUpVolunteer/>}/>
+            <Route path='/Login-NGO' element={<LoginNGO/>}/>
+            <Route path='/SignUp-NGO' element={<SignUpNGO/>}/>
             
         </Routes>
     </BrowserRouter>

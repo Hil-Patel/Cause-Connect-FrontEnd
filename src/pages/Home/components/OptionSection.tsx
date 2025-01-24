@@ -15,7 +15,7 @@ const OptionsSection = () => {
     }
 
   return (
-    <div className="flex flex-col md:flex-row justify-center items-center gap-10 p-12">
+    <section id="loginoption" className="flex flex-col md:flex-row justify-center items-center gap-10 p-12">
       
       <div className="bg-[#F5F5F5] shadow-sm shadow-[#53599A] rounded-2xl m-12 px-8 py-4 text-center w-96 lg:w-[30%] h-auto">
 
@@ -45,7 +45,7 @@ const OptionsSection = () => {
           Get Start
         </button>
       </div>
-    </div>
+    </section>
   );
 };
 

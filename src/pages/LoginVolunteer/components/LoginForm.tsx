@@ -3,6 +3,7 @@ import { loginValidationSchema } from "../Schema/LoginValidationSchema"
 import image from "../../../assets/volunteer_login.svg"
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 export const LoginForm = () => {
     const navigate=useNavigate();
@@ -17,13 +18,14 @@ export const LoginForm = () => {
             password: '',
         },
         validationSchema: loginValidationSchema,
-        onSubmit: (values) => {
-            console.log('Login Successful:', values);
+        onSubmit: async(values) => {
+            
+            toast.success("Login Successful")
         },
     });
     return (
 
-        <div className="flex justify-center items-center h-full bg-white">
+        <div className="flex justify-center items-center h-full bg-white my-20">
             <div className="bg-[#F5F5F5] shadow-sm shadow-[#53599A] rounded-lg p-10 flex flex-col md:flex-row items-center max-w-4xl w-full">
 
                 <div className="hidden md:block w-1/2">
@@ -56,7 +58,7 @@ export const LoginForm = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-medium">Create password</label>
+                            <label className="block text-gray-700 font-medium">Enter password</label>
                             <input
                                 type="password"
                                 name="password"

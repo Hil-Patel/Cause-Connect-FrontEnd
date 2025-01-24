@@ -14,7 +14,10 @@ export const Home = () => {
       </div>
       <OptionsSection/>
       <NGOCards />
+      <div id='footer'>
+
       <Footer/>
+      </div>
     </>
   )
 }

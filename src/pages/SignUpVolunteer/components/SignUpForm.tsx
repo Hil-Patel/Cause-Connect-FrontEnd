@@ -16,14 +16,15 @@ const SignUpForm = () => {
             fullName: "",
             email: "",
             phoneNumber: "",
-            dob: "",
+            age: "",
             address: "",
+            gender:"",
             experience: "",
             password: "",
             confirmPassword: "",
         },
         validationSchema: signupValidationSchema,
-        onSubmit: (values) => {
+        onSubmit: async(values) => {
             console.log("Signup Form Submitted", values);
             navigate("/")
         },
@@ -93,19 +94,51 @@ const SignUpForm = () => {
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-gray-700 font-medium">DOB</label>
+                            <label className="block text-gray-700 font-medium">AGE</label>
                             <input
-                                type="date"
-                                name="dob"
+                                type="number"
+                                name="age"
                                 className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#08C2FF]"
-                                value={formik.values.dob}
+                                value={formik.values.age}
                                 onChange={formik.handleChange}
                                 onBlur={formik.handleBlur} 
                             />
-                            {formik.touched.dob && formik.errors.dob && (
-                                <p className="text-red-500 text-sm mt-1">{formik.errors.dob}</p>
+                            {formik.touched.age && formik.errors.age && (
+                                <p className="text-red-500 text-sm mt-1">{formik.errors.age}</p>
                             )}
                         </div>
+                        
+                        <div className="mb-4">
+              <label className="block text-gray-700 font-medium">Gender</label>
+              <div className="flex items-center mt-2">
+                <label className="mr-4">
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    checked={formik.values.gender === "Male"}
+                    onChange={formik.handleChange}
+                    className="mr-2"
+                  />
+                  Male
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    checked={formik.values.gender === "Female"}
+                    onChange={formik.handleChange}
+                    className="mr-2"
+                  />
+                  Female
+                </label>
+              </div>
+              {formik.touched.gender && formik.errors.gender && (
+                <p className="text-red-500 text-sm mt-1">{formik.errors.gender}</p>
+              )}
+            </div>
+
 
                         <div className="mb-4">
                             <label className="block text-gray-700 font-medium">Address</label>

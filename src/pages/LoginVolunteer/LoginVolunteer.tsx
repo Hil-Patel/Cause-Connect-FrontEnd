@@ -5,7 +5,7 @@ import { LoginForm } from "./components/LoginForm"
 
 const LoginVolunteer = () => {
   return (
-    <div className="h-screen">
+    <div >
       <Navbar/>
       <LoginForm/>
       <Footer/>

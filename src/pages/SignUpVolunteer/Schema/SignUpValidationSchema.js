@@ -8,10 +8,10 @@ export const signupValidationSchema = Yup.object({
   phoneNumber: Yup.string()
     .matches(/^\+?\d{10,15}$/, "Invalid phone number")
     .required("Phone number is required"),
-  dob: Yup.date()
-  .required("Date of Birth is required")
-  .max(new Date(), "DOB cannot be in the future"),
+  age: Yup.number()
+  .required("Age of Birth is required"),
   address: Yup.string().required("Address is required"),
+  gender: Yup.string().required("Gender is required"),
   experience: Yup.string(),
   password: Yup.string()
     .min(8, "Password must be at least 8 characters long")
