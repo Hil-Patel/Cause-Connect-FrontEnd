@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 // Define the type for form values
 interface FormValues {
   fullName: string;
-  ownerEmail: string;
+  ownerEmail: string; 
   ownerPhoneNumber: string;
   age: string;
   gender: string;
