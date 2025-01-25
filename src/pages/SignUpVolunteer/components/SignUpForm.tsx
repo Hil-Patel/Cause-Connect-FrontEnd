@@ -30,7 +30,7 @@ const SignUpForm = () => {
             console.log("Signup Form Submitted", values);
             const res = await VolunteerSignUp(values);
             if(res.data.statusCode  == 201){
-                toast.success("Hurray");
+                toast.success("Registered Successfully");
                 navigate("/Login-Volunteer")
             }else{
                 toast.error(res.data.message);
