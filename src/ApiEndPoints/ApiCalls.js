@@ -1,13 +1,40 @@
 import axios from "axios"
 
-const baseURL="http://localhost:8081/api/v1"
+const baseURL="http://localhost:8080/api/v1"
 
-export const NGOLogin=async(value)=>{
+export const AdminVerify=async(values)=>{
     try {
-        const res=await axios.post(`${baseURL}/loginNgo`,value)
-        return res;
+        const res=await axios.post(`${baseURL}/Admin`,values)
+        return res.data;
     } catch (error) {
-        return error;
+        return error.response.data;
+    }
+}
+
+export const NgoOtpSend=async(values)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/SendOtp`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const NgoVerifyOtp=async(values)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/VerifyOtp`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const NGOLogin=async(values)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/loginNgo`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
     }
 }
 
@@ -31,34 +58,70 @@ export const NGOSignUp=async(values)=>{
         formData.append("age", values.age);
         formData.append("gender", values.gender);
         formData.append("experience", values.experience);
-        formData.append("bankStatement", values.bankStatement);// File object
-        formData.append("transcript", values.transcript); // File object
-        formData.append("profilePic", values.profilePic); // File object
-        const res=await axios.post(`${baseURL}/registerNgo`,formData)
-        return res;
+        formData.append("bankStatement", values.bankStatement);
+        formData.append("transcript", values.transcript); 
+        formData.append("profilePic", values.profilePic); 
+        const res=await axios.post(`${baseURL}/Ngo/registerNgo`,formData)
+        return res.data;
     } catch (error) {
-        return error;
+        return error.response.data;
     }
 }
 
-
-export const VolunteerLogin=async(value)=>{
+export const NgoVerify=async(values)=>{
     try {
-        const res=await axios.post(`${baseURL}/loginVolunteer`,value)
-        console.log(res);
+        const res=await axios.get(`${baseURL}/Ngo`,{headers:values})
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const VolunteerOtpSend=async(values)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Volunteer/SendOtp`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const VolunteerVerifyOtp=async(values)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Volunteer/VerifyOtp`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const VolunteerVerify=async(values)=>{
+    try {
+        console.log(values);
         
-        return res;
+        const res=await axios.get(`${baseURL}/Volunteer`,{headers:values})
+        return res.data;
     } catch (error) {
-        return error;
+        return error.response.data;
     }
 }
 
-export const VolunteerSignUp=async(value)=>{
+export const VolunteerLogin=async(values)=>{
     try {
-        const res=await axios.post(`${baseURL}/registerVolunteer`,value);
-        console.log(res);
-        return res;
+        const res=await axios.post(`${baseURL}/Volunteer/loginVolunteer`,values)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const VolunteerSignUp=async(values)=>{
+    try {
+        console.log(values);
+        
+        const res=await axios.post(`${baseURL}/Volunteer/registerVolunteer`,values);
+        return res.data;
     } catch (error){
-        return error;
+        return error.response.data;
     }
 }

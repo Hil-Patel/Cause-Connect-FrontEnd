@@ -28,7 +28,7 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-semibold">Contact Us</h2>
           <p className="mt-3 text-sm text-gray-300">Email: support@causeconnect.org</p>
-          <p className="mt-1 text-sm text-gray-300">Phone: +1 9725713039</p>
+          <p className="mt-1 text-sm text-gray-300">Phone: +91 9725713039</p>
           <div className="mt-4 flex space-x-4">
             <a href="#" className="text-gray-300 hover:text-blue-400 text-lg"><FaFacebookF /></a>
             <a href="#" className="text-gray-300 hover:text-blue-400 text-lg"><FaTwitter /></a>

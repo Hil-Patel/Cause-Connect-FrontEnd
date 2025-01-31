@@ -2,10 +2,13 @@ import { useFormik } from "formik";
 import image from "../../../assets/rb_2149820257.png";
 import { SignUpNGOValidation2 } from "../schema/SignUpNGOValidation2.js"
 import upload from "../../../assets/upload-file-svgrepo-com.svg"
-import { ChangeEvent, useEffect, useRef } from "react";
-import {NGOSignUp} from "../../../ApiEndPoints/ApiCalls.js"
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import {NGOSignUp,NgoOtpSend,NgoVerifyOtp} from "../../../ApiEndPoints/ApiCalls.js"
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate } from "react-router-dom";
+import NgoOtpVerify from "./NgoOtpVerify.js";
+import { useDispatch } from "react-redux";
+import { setLoading } from "../../../features/loadingSlice.js";
 type FormValues = {
   ngoName: string;
   ngoAim: string;
@@ -22,14 +25,18 @@ type FormValues = {
 };
 
 const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
+  const [showOtpModal, setShowOtpModal] = useState(false)
+  const [otpId,setOtpId] =useState("");
   const navigate=useNavigate()
+  const dispatch=useDispatch()
   const inputRef = [useRef(null), useRef(null), useRef(null)];
+
   const formik = useFormik({
     initialValues: {
       ngoName: "",
       ngoAim: "",
       ngoDescription: "",
-      email: "",
+      email:"",
       phoneNumber: "",
       address: "",
       numberOfMember:"",
@@ -43,17 +50,18 @@ const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
     },
     validationSchema: SignUpNGOValidation2,
     onSubmit: async(values) => {
-      const formOneDetails=JSON.parse(localStorage.getItem("form1"))
-      console.log(formOneDetails);
+
+      dispatch(setLoading(true))
+      const res = await NgoOtpSend({"email":values.email});
+      dispatch(setLoading(false))
       
-      values={...values,...formOneDetails};
-      console.log(values);
-  
-      const res=await NGOSignUp(values)
-      console.log(res);
-      localStorage.removeItem("form1");
-      toast.success("Login Successful")
-      navigate("/Login-NGO")
+      if(res.statusCode >=200 && res.statusCode <300){
+          setOtpId(res.data);
+          setShowOtpModal(true);
+      }
+      else{
+        toast.error(res.message)
+      }
     },
   });
 
@@ -62,13 +70,44 @@ const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
   }
 
   const handleFileUpload = (e: ChangeEvent<HTMLInputElement>, fieldName: string) => {
-
     formik.setFieldValue(fieldName, event.target.files[0]);
   };
 
+  const handleOtpSubmit = async(otp: string) => {
+
+    dispatch(setLoading(true))
+    const verify=await NgoVerifyOtp({"id":otpId,"otp":otp})
+    
+
+    if(verify.statusCode >=200 && verify.statusCode <300){
+      const formOneDetails=JSON.parse(localStorage.getItem("form1"))
+      const values={...formik.values,...formOneDetails};
+
+      const res=await NGOSignUp(values)
+      dispatch(setLoading(false))
+
+      if(res.statusCode >=200 && res.statusCode <300){
+        localStorage.removeItem("form1");
+        toast.success(res.message)
+        navigate("/Login-NGO")
+      }
+      else{
+        toast.error(res.message)
+      }
+      setShowOtpModal(false)
+    }
+    else{
+      dispatch(setLoading(false))
+      toast.error(verify.message)
+    }
+  }
 
   return (
     <div className="flex justify-center items-center m-10 bg-white">
+      
+      <div >
+        <NgoOtpVerify isOpen={showOtpModal} onClose={() => setShowOtpModal(false)} onSubmit={handleOtpSubmit}/>
+      </div>
       <form
         onSubmit={formik.handleSubmit}
         className="bg-[#FAFAFA] shadow-sm shadow-[#53599A] rounded-xl p-8 max-w-5xl w-full"
@@ -322,7 +361,7 @@ const SignUpNGOForm2 = ({ setFormOneSubmitted }) => {
             type="submit"
             className="w-1/3 px-10 py-1 text-white bg-[#FF5722] rounded-full shadow-lg hover:bg-[#FF7043] transition duration-300"
           >
-            Sign up
+            Verify Email
           </button>
         </div>
       </form>

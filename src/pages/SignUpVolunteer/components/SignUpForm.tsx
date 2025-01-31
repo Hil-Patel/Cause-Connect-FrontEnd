@@ -1,13 +1,19 @@
 import { useFormik } from 'formik';
 import { signupValidationSchema } from '../Schema/signupValidationSchema'
 import image from "../../../assets/volunteer_signup.svg"
-import {VolunteerSignUp} from "../../../ApiEndPoints/ApiCalls"
-import React from 'react'
+import {VolunteerOtpSend,VolunteerVerifyOtp,VolunteerSignUp} from "../../../ApiEndPoints/ApiCalls"
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../../features/loadingSlice';
+import VolunteerOtpVerify from './VolunteerOtpVerify';
 
 const SignUpForm = () => {
+    const [showOtpModal, setShowOtpModal] = useState(false)
+    const [otpId,setOtpId] =useState("");
     const navigate = useNavigate();
+    const dispatch=useDispatch()
 
     const HandleLogInClick = () => {
         navigate("/Login-Volunteer")
@@ -20,6 +26,7 @@ const SignUpForm = () => {
             phoneNumber: "",
             age: "",
             address: "",
+            city:"",
             gender:"",
             experience: "",
             password: "",
@@ -27,19 +34,52 @@ const SignUpForm = () => {
         },
         validationSchema: signupValidationSchema,
         onSubmit: async(values) => {
-            console.log("Signup Form Submitted", values);
-            const res = await VolunteerSignUp(values);
-            if(res.data.statusCode  == 201){
-                toast.success("Registered Successfully");
-                navigate("/Login-Volunteer")
+            dispatch(setLoading(true))
+            const res = await VolunteerOtpSend({"email":values.email});
+            dispatch(setLoading(false))
+
+            if(res.statusCode >=200 && res.statusCode <300){
+                setOtpId(res.data);
+                setShowOtpModal(true);
             }else{
-                toast.error(res.data.message);
+                
+        toast.error(res.message)
             }
         },
     });
+
+    const handleOtpSubmit = async(otp: string)=>{
+        dispatch(setLoading(true))
+        const verify=await VolunteerVerifyOtp({"id":otpId,"otp":otp})
+        dispatch(setLoading(false))
+
+        if(verify.statusCode >=200 && verify.statusCode <300){
+            console.log(formik.values);
+            
+            dispatch(setLoading(true))
+            const res=await VolunteerSignUp(formik.values)
+            dispatch(setLoading(false))
+
+            if(res.statusCode >=200 && res.statusCode <300){
+                toast.success(res.message)
+                navigate("/Login-Volunteer")
+            }
+            else{
+                toast.error(res.message)
+            }
+            setShowOtpModal(false)
+        }
+        else{
+            toast.error(verify.message)
+        }
+    }
     return (
 
         <div className="flex justify-center items-center h-full bg-white my-10">
+            <div>
+                <VolunteerOtpVerify isOpen={showOtpModal} onClose={() => setShowOtpModal(false)} onSubmit={handleOtpSubmit}/>
+            </div>
+
             <div className="bg-[#F5F5F5] shadow-sm shadow-[#53599A] rounded-lg p-10 flex flex-col md:flex-row items-center max-w-5xl w-full">
 
                 <div className="w-full md:w-1/2 px-6">
@@ -161,6 +201,22 @@ const SignUpForm = () => {
                                 />
                                 {formik.touched.address && formik.errors.address && (
                                     <p className="text-red-500 text-sm mt-1">{formik.errors.address}</p>
+                                )}
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-gray-700 font-medium">City</label>
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder=" City"
+                                className="w-full px-4 py-2 mt-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#08C2FF]"
+                                value={formik.values.city}
+                                onChange={formik.handleChange}
+                                onBlur={formik.handleBlur} 
+                                />
+                                {formik.touched.city && formik.errors.city && (
+                                    <p className="text-red-500 text-sm mt-1">{formik.errors.city}</p>
                                 )}
                         </div>
 

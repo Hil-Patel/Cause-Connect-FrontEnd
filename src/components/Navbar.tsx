@@ -1,15 +1,29 @@
 import React from 'react';
 import logo from "../assets/hill_logo-removebg-preview.png";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { HashLink } from "react-router-hash-link";
+import { useDispatch } from 'react-redux';
+import { setLoggedOut } from '../features/LoginDetailsSlice';
 
-export const Navbar = () => {
+export const Navbar = ({ isLoggedIn, userType }) => {
+    const navigate=useNavigate();
+    const dispatch=useDispatch()
     const toggleDisplay = () => {
         document.getElementById('mobile-menu')?.classList.toggle('hidden');
     };
 
+    const handleLogOut=()=>{
+        dispatch(setLoggedOut("false"))
+                
+                setTimeout(()=>{
+                    console.log(localStorage.getItem("loggedIn"));
+                    navigate("/")
+
+                },1000)
+    }
+
     return (
-        <nav className="bg-white border-b sticky top-0 z-50">
+        <nav className="bg-white border-b sticky top-0 z-[1000]">
             <div className=" px-6">
                 <div className="flex justify-between items-center py-2">
 
@@ -21,27 +35,114 @@ export const Navbar = () => {
 
                     {/* Centered Menu Items */}
                     <ul id="menu" className="hidden lg:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
-                        <li >
-                            <HashLink
-                                to="/"
-                                smooth
-                                className="text-black hover:text-blue-500"
-                            >
-                                Home
-                            </HashLink>
-                        </li>
-                        <li>
-                            <HashLink
-                                to="/#footer"
-                                smooth
-                                className="text-black hover:text-blue-500"
-                            >
-                                About
-                            </HashLink>
-                        </li>
+                        {isLoggedIn == "false" ? <>
+                            <li >
+                                <HashLink
+                                    to="/"
+                                    smooth
+                                    className="text-black hover:text-blue-500"
+                                >
+                                    Home
+                                </HashLink>
+                            </li>
+                            <li>
+                                <HashLink
+                                    to="/#footer"
+                                    smooth
+                                    className="text-black hover:text-blue-500"
+                                >
+                                    About
+                                </HashLink>
+                            </li>
+                        </> : userType == "VOLUNTEER" ?
+                            <>
+                                <li>
+                                    <Link
+                                        to="/#footer"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        Dashboard
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/#footer"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        Events
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link
+                                        to="/#footer"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        NGOs
+                                    </Link>
+                                </li>
+                            </> : userType == "NGO" ?
+                                <>
+                                    <li>
+                                        <Link
+                                            to="/#footer"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Dashboard
+                                        </Link>
+                                    </li>
+                                    <li>
+                                        <Link
+                                            to="/#footer"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Upcoming Events
+                                        </Link>
+                                    </li>
+                                </>
+                                :
+                                userType == "ADMIN" ?
+                                    <>
+                                        <li>
+                                            <Link
+                                                to="/#footer"
+                                                className="text-black hover:text-blue-500"
+                                            >
+                                                Approved NGOs
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/#footer"
+                                                className="text-black hover:text-blue-500"
+                                            >
+                                                Unapproved NGOs
+                                            </Link>
+                                        </li>
+                                        <li>
+                                            <Link
+                                                to="/#footer"
+                                                className="text-black hover:text-blue-500"
+                                            >
+                                                Volunteers
+                                            </Link>
+                                        </li>
+                                    </>
+                                    : null
+                        }
+
+
                     </ul>
 
                     <div className="hidden lg:block flex justify-center items-center">
+                        {isLoggedIn=="true"?
+                        <button
+                        onClick={()=>handleLogOut()}
+                        className="text-white px-6 py-3 rounded-full bg-blue-500 hover:bg-blue-400"
+                    >
+                        Log Out
+                    </button>
+                        :
+                        
                         <HashLink
                             to="/#loginoption"
                             smooth
@@ -49,6 +150,7 @@ export const Navbar = () => {
                         >
                             Login
                         </HashLink>
+                        }
                     </div>
                     {/* Mobile Menu Button */}
                     <div className="lg:hidden" onClick={toggleDisplay}>

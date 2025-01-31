@@ -5,9 +5,13 @@ import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import {VolunteerLogin} from "../../../ApiEndPoints/ApiCalls"
 import toast from 'react-hot-toast';
+import { setLoading } from '../../../features/loadingSlice';
+import { setLoggedIn } from '../../../features/LoginDetailsSlice';
+import { useDispatch } from 'react-redux';
 
 export const LoginForm = () => {
     const navigate=useNavigate();
+    const dispatch=useDispatch();
 
     const HandleSignUpClick=()=>{
         navigate("/SignUp-Volunteer")
@@ -20,10 +24,20 @@ export const LoginForm = () => {
         },
         validationSchema: loginValidationSchema,
         onSubmit: async(values) => {
+            dispatch(setLoading(true))
             const res = await VolunteerLogin(values);
-            if(res.data.statusCode==200){
-                navigate("Volunteer/dashboard");
+            dispatch(setLoading(false))
+
+            if(res.statusCode >=200 && res.statusCode <300){
                 toast.success("Login Successful")
+                dispatch(setLoggedIn({
+                    IsLoggedin : "true",
+                    Token : values,
+                    UserType : "VOLUNTEER"
+                }))
+                setTimeout(()=>{
+                    navigate("/Volunteer/dashboard")
+                },1000)
             }else{
                 toast.error(res.data.message);
             }

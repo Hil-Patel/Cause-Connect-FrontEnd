@@ -5,9 +5,13 @@ import image from "../../../assets/volunteer_login.svg"
 import {NGOloginValidationSchema} from "../Schema/NGOLoginValidateSchema.js"
 import toast from 'react-hot-toast';
 import {NGOLogin} from "../../../ApiEndPoints/ApiCalls.js"
+import { useDispatch } from 'react-redux';
+import { setLoading } from '../../../features/loadingSlice.js';
+import { setLoggedIn } from '../../../features/LoginDetailsSlice.js';
+
 const LoginNGOForm = () => {
-    
     const navigate = useNavigate();
+    const dispatch=useDispatch();
 
     const HandleSignUpClick=()=>{
         navigate("/SignUp-NGO")
@@ -20,9 +24,25 @@ const LoginNGOForm = () => {
         },
         validationSchema:NGOloginValidationSchema,
         onSubmit: async(values) => {
+
+            dispatch(setLoading(true))
             const res=await NGOLogin(values)
-            toast.success("Login Successful")
-            navigate("NGO/dashboard")
+            dispatch(setLoading(false))
+            
+            if(res.statusCode >=200 && res.statusCode <300){
+                toast.success("Login Successful")
+                dispatch(setLoggedIn({
+                    IsLoggedin : "true",
+                    Token : values,
+                    UserType : "NGO"
+                }))
+                setTimeout(()=>{
+                    navigate("/NGO/dashboard")
+                },1000)
+            }
+            else{
+              toast.error(res.message)
+            }
         },
     });
 

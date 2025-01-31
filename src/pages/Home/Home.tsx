@@ -8,15 +8,12 @@ import OptionsSection from './components/OptionSection'
 export const Home = () => {
   return (
     <>
-      <Navbar />
       <div className='h-[100vh] lg:h-[85vh] '>
         <Hero />
       </div>
       <OptionsSection/>
       <NGOCards />
       <div id='footer'>
-
-      <Footer/>
       </div>
     </>
   )

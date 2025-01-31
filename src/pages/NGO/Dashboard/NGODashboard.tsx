@@ -6,9 +6,7 @@ const NGODashboard = () => {
   return (
     <div>
 
-    <Navbar/>
     <div>Dashboard</div>
-    <Footer/>
     </div>
   )
 }

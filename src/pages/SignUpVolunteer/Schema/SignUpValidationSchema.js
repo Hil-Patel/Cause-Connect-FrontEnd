@@ -11,6 +11,7 @@ export const signupValidationSchema = Yup.object({
   age: Yup.number()
   .required("Age of Birth is required"),
   address: Yup.string().required("Address is required"),
+  address: Yup.string().required("City is required"),
   gender: Yup.string().required("Gender is required"),
   experience: Yup.string(),
   password: Yup.string()

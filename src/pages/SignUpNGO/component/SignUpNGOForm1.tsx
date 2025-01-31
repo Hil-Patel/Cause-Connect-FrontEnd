@@ -77,7 +77,7 @@ const SignUpNGOForm1: React.FC = ({setFormOneSubmitted}) => {
 
             {/* ownerEmail */}
             <div className="mb-4">
-              <label className="block text-gray-700 font-medium">ownerEmail address</label>
+              <label className="block text-gray-700 font-medium">Email address</label>
               <input
                 type="ownerEmail"
                 name="ownerEmail"
