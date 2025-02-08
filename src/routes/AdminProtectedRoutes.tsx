@@ -11,25 +11,29 @@ const AdminProtectedRoutes = () => {
     const token = useSelector((state)=>state.loggedIn.Token)
 
     const handleVerify=async()=>{
-        console.log(token);
         
         const res=await AdminVerify(JSON.parse(token))
-        setLoading(false)
         if(res.statusCode >=200 && res.statusCode <300){
             setVerify(true);
+            console.log("f1");
+            
         }
         else{
-            setVerify(false)
-            localStorage.setItem("IsLoggedin","false")
             toast.error(res.message);
+            localStorage.setItem("IsLoggedin","false")
+            setVerify(false)
+            
+            console.log("f2");
         }
+        setLoading(false)
     }
 
     useEffect(() => {
         if(IsLoggedin=="false"){
-            setVerify(false)
             toast.error("Unauthorized Access")
+            setVerify(false)
             setLoading(false)
+            console.log("f3");
         }else{
             handleVerify();
         }

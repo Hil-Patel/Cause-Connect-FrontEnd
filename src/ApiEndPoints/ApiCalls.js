@@ -11,6 +11,53 @@ export const AdminVerify=async(values)=>{
     }
 }
 
+export const AdminApproveNgo=async(values)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Admin/Approve/Ngo/${values}`)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const AdminDisApproveNgo=async(values)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Admin/Disapprove/Ngo/${values}`)
+        return res.data;
+    } catch (error) {
+        console.log("hi");
+        
+        return error.response.data;
+    }
+}
+
+export const UnapprovedNgoFetch=async(values)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Admin/UnapprovedNgo`)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const ApprovedNgoFetch=async(values)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Admin/ApprovedNgo`)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const VolunteerDataFetchAdmin=async()=>{
+    try {
+        const res=await axios.get(`${baseURL}/Volunteer/All`)
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
 export const NgoOtpSend=async(values)=>{
     try {
         const res=await axios.post(`${baseURL}/Ngo/SendOtp`,values)
@@ -97,8 +144,6 @@ export const VolunteerVerifyOtp=async(values)=>{
 
 export const VolunteerVerify=async(values)=>{
     try {
-        console.log(values);
-        
         const res=await axios.get(`${baseURL}/Volunteer`,{headers:values})
         return res.data;
     } catch (error) {

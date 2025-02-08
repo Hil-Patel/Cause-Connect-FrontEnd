@@ -8,6 +8,10 @@
     box-sizing: border-box;
     animation: rotation 1s linear infinite;
   }
+
+  .active{
+    color: #3b82f6;
+  }
   
   @keyframes rotation {
     0% {

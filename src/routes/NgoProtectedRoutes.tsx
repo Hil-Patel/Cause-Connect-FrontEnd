@@ -29,8 +29,6 @@ const NgoProtectedRoutes = () => {
         if(IsLoggedin=="false"){
             setVerify(false)
             toast.error("Unauthorized Access")
-
-            //navigate somewhere
             setLoading(false)
         }else{
             handleVerify();

@@ -14,12 +14,15 @@ import { useEffect, useState } from 'react'
 import AdminProtectedRoutes from './AdminProtectedRoutes'
 import { useSelector } from 'react-redux'
 import VolunteerProtectedRoutes from './VolunteerProtectedRoutes'
+import UnApprovedNgo from '../pages/Admin/UnApprovedNgo/UnApprovedNgo'
+import LoginAdmin from '../pages/Admin/LoginAdmin'
+import ApprovedNgo from '../pages/Admin/ApprovedNgo/ApprovedNgo'
+import VolunteerListForAdmin from '../pages/Admin/Volunteer/VolunteerListForAdmin'
 
 export const AppRoutes = () => {
   const IsLoggedin = useSelector((state)=>state.loggedIn.IsLoggedin);
   const userType= useSelector((state)=>state.loggedIn.UserType);
 
-  const [changeThis,setChangeThis]=useState(false)
 
   useEffect(()=>{
     // console.log(IsLoggedin);
@@ -27,7 +30,6 @@ export const AppRoutes = () => {
     
     if(!IsLoggedin){
       localStorage.setItem("IsLoggedin","false")
-      setChangeThis(!changeThis)
     }
     // else{
     //   setIsLoggedIn(localStorage.getItem("loggedIn"))
@@ -50,6 +52,7 @@ export const AppRoutes = () => {
             <Route path='/SignUp-Volunteer' element={<SignUpVolunteer />} />
             <Route path='/Login-NGO' element={<LoginNGO />} />
             <Route path='/SignUp-NGO' element={<SignUpNGO />} />
+            <Route path='/Login-Admin' element={<LoginAdmin/>}/>
           </>
         )}
 
@@ -62,6 +65,7 @@ export const AppRoutes = () => {
             <Route path='/SignUp-Volunteer' element={<Navigate to="/" />} />
             <Route path='/Login-NGO' element={<Navigate to="/" />} />
             <Route path='/SignUp-NGO' element={<Navigate to="/" />} />
+            <Route path='/Login-Admin' element={<Navigate to="/" />}/>
             <Route path="/" element={<Navigate to="/NGO/dashboard" />} />
 
 
@@ -76,6 +80,7 @@ export const AppRoutes = () => {
               <Route path='/SignUp-Volunteer' element={<Navigate to="/" />} />
               <Route path='/Login-NGO' element={<Navigate to="/" />} />
               <Route path='/SignUp-NGO' element={<Navigate to="/" />} />
+              <Route path='/Login-Admin' element={<Navigate to="/" />}/>
               <Route path="/" element={<Navigate to="/Volunteer/dashboard" />} />
   
               <Route path='/Volunteer'>
@@ -90,10 +95,13 @@ export const AppRoutes = () => {
               <Route path='/SignUp-Volunteer' element={<Navigate to="/" />} />
               <Route path='/Login-NGO' element={<Navigate to="/" />} />
               <Route path='/SignUp-NGO' element={<Navigate to="/" />} />
-              <Route path="/" element={<Navigate to="/Admin/dashboard" />} />
+              <Route path='/Login-Admin' element={<Navigate to="/" />}/>
+              <Route path="/" element={<Navigate to="/Admin/ApprovedNGO" />} />
   
               <Route path='/Admin'>
-                <Route path='dashboard' element={<VolunteerDashboard />} />
+                <Route path='UnApprovedNGO' element={<UnApprovedNgo />} />
+                <Route path='ApprovedNGO' element={<ApprovedNgo/>}/>
+                <Route path='VolunteerList' element={<VolunteerListForAdmin/>}/>
               </Route>
   
             </Route>

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { HashLink } from "react-router-hash-link";
 import { useDispatch } from 'react-redux';
 import { setLoggedOut } from '../features/LoginDetailsSlice';
+import { NavLink } from 'react-router-dom';
 
 export const Navbar = ({ isLoggedIn, userType }) => {
     const navigate=useNavigate();
@@ -35,7 +36,7 @@ export const Navbar = ({ isLoggedIn, userType }) => {
 
                     {/* Centered Menu Items */}
                     <ul id="menu" className="hidden lg:flex space-x-8 absolute left-1/2 transform -translate-x-1/2">
-                        {isLoggedIn == "false" ? <>
+                    {isLoggedIn == "false" ? <>
                             <li >
                                 <HashLink
                                     to="/"
@@ -57,74 +58,74 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                         </> : userType == "VOLUNTEER" ?
                             <>
                                 <li>
-                                    <Link
-                                        to="/#footer"
+                                    <NavLink
+                                        to="/Volunteer/dashboard"
                                         className="text-black hover:text-blue-500"
                                     >
                                         Dashboard
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <Link
+                                    <NavLink
                                         to="/#footer"
                                         className="text-black hover:text-blue-500"
                                     >
                                         Events
-                                    </Link>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <Link
+                                    <NavLink
                                         to="/#footer"
                                         className="text-black hover:text-blue-500"
                                     >
                                         NGOs
-                                    </Link>
+                                    </NavLink>
                                 </li>
                             </> : userType == "NGO" ?
                                 <>
                                     <li>
-                                        <Link
-                                            to="/#footer"
+                                        <NavLink
+                                            to="/NGO/dashboard"
                                             className="text-black hover:text-blue-500"
                                         >
                                             Dashboard
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                     <li>
-                                        <Link
+                                        <NavLink
                                             to="/#footer"
                                             className="text-black hover:text-blue-500"
                                         >
                                             Upcoming Events
-                                        </Link>
+                                        </NavLink>
                                     </li>
                                 </>
                                 :
                                 userType == "ADMIN" ?
                                     <>
                                         <li>
-                                            <Link
-                                                to="/#footer"
+                                            <NavLink
+                                                to="/Admin/ApprovedNGO"
                                                 className="text-black hover:text-blue-500"
                                             >
                                                 Approved NGOs
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <li>
-                                            <Link
-                                                to="/#footer"
+                                            <NavLink
+                                                to="/Admin/UnApprovedNGO"
                                                 className="text-black hover:text-blue-500"
                                             >
                                                 Unapproved NGOs
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                         <li>
-                                            <Link
-                                                to="/#footer"
+                                            <NavLink
+                                                to="/Admin/VolunteerList"
                                                 className="text-black hover:text-blue-500"
                                             >
                                                 Volunteers
-                                            </Link>
+                                            </NavLink>
                                         </li>
                                     </>
                                     : null
@@ -163,11 +164,103 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                 </div>
 
                 {/* Mobile Dropdown Menu */}
-                <ul id="mobile-menu" className="hidden flex flex-col space-y-2 lg:hidden bg-blue-100 px-4 py-2">
-                    <li><a href="#" className="text-black hover:text-blue-500">Home</a></li>
-                    <li><a href="#" className="text-black hover:text-blue-500">About</a></li>
-                    <li><a href="#" className="text-black hover:text-blue-500">Sign In</a></li>
-                    <li><a href="#" className="text-black hover:text-blue-500">Sign Up</a></li>
+                <ul id="mobile-menu" className="hidden flex flex-col space-y-2 lg:hidden  px-4 py-2">
+                {isLoggedIn == "false" ? <>
+                            <li >
+                                <HashLink
+                                    to="/"
+                                    smooth
+                                    className="text-black hover:text-blue-500"
+                                >
+                                    Home
+                                </HashLink>
+                            </li>
+                            <li>
+                                <HashLink
+                                    to="/#footer"
+                                    smooth
+                                    className="text-black hover:text-blue-500"
+                                >
+                                    About
+                                </HashLink>
+                            </li>
+                        </> : userType == "VOLUNTEER" ?
+                            <>
+                                <li>
+                                    <NavLink
+                                        to="/Volunteer/dashboard"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        Dashboard
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/#footer"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        Events
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
+                                        to="/#footer"
+                                        className="text-black hover:text-blue-500"
+                                    >
+                                        NGOs
+                                    </NavLink>
+                                </li>
+                            </> : userType == "NGO" ?
+                                <>
+                                    <li>
+                                        <NavLink
+                                            to="/NGO/dashboard"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Dashboard
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to="/#footer"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Upcoming Events
+                                        </NavLink>
+                                    </li>
+                                </>
+                                :
+                                userType == "ADMIN" ?
+                                    <>
+                                        <li>
+                                            <NavLink
+                                                to="/Admin/ApprovedNGO"
+                                                className="text-black hover:text-blue-500"
+                                            >
+                                                Approved NGOs
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/Admin/UnApprovedNGO"
+                                                className="text-black hover:text-blue-500"
+                                                
+                                            >
+                                                Unapproved NGOs
+                                            </NavLink>
+                                        </li>
+                                        <li>
+                                            <NavLink
+                                                to="/Admin/VolunteerList"
+                                                className="text-black hover:text-blue-500"
+                                                
+                                            >
+                                                Volunteers
+                                            </NavLink>
+                                        </li>
+                                    </>
+                                    : null
+                        }
                 </ul>
             </div>
         </nav>

@@ -14,7 +14,6 @@ const VolunteerProtectedRoutes = () => {
         console.log(token);
         
         const res=await VolunteerVerify(JSON.parse(token))
-        setLoading(false)
         if(res.statusCode >=200 && res.statusCode <300){
             setVerify(true);
         }
@@ -23,6 +22,7 @@ const VolunteerProtectedRoutes = () => {
             localStorage.setItem("loggedIn","false")
             toast.error(res.message);
         }
+        setLoading(false)
     }
 
     useEffect(() => {
