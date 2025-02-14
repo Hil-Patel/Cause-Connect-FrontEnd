@@ -13,17 +13,15 @@ const AdminProtectedRoutes = () => {
     const handleVerify=async()=>{
         
         const res=await AdminVerify(JSON.parse(token))
+        
         if(res.statusCode >=200 && res.statusCode <300){
             setVerify(true);
-            console.log("f1");
             
         }
         else{
             toast.error(res.message);
             localStorage.setItem("IsLoggedin","false")
             setVerify(false)
-            
-            console.log("f2");
         }
         setLoading(false)
     }
@@ -33,7 +31,6 @@ const AdminProtectedRoutes = () => {
             toast.error("Unauthorized Access")
             setVerify(false)
             setLoading(false)
-            console.log("f3");
         }else{
             handleVerify();
         }

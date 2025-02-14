@@ -99,6 +99,14 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                             Upcoming Events
                                         </NavLink>
                                     </li>
+                                    <li>
+                                        <NavLink
+                                            to="/NGO/Create-Event"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Create Event
+                                        </NavLink>
+                                    </li>
                                 </>
                                 :
                                 userType == "ADMIN" ?
@@ -226,6 +234,14 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                             className="text-black hover:text-blue-500"
                                         >
                                             Upcoming Events
+                                        </NavLink>
+                                    </li>
+                                    <li>
+                                        <NavLink
+                                            to="/Create-Event"
+                                            className="text-black hover:text-blue-500"
+                                        >
+                                            Create Event
                                         </NavLink>
                                     </li>
                                 </>

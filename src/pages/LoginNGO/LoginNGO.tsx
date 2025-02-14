@@ -8,13 +8,6 @@ import { RootState } from '@reduxjs/toolkit/query'
 const LoginNGO = () => {
   const loading = useSelector((state: RootState) => state.loading.isLoading);
 
-  useEffect(() => {
-    if (loading) {
-      document.body.classList.add('overflow-hidden');
-    } else {
-      document.body.classList.remove('overflow-hidden');
-    }
-  }, [loading]);
 
   return (
     <div >

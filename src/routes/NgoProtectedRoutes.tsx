@@ -11,7 +11,6 @@ const NgoProtectedRoutes = () => {
     const token = useSelector((state)=>state.loggedIn.Token)
 
     const handleVerify=async()=>{
-        console.log(token);
         
         const res=await NgoVerify(JSON.parse(token))
         if(res.statusCode >=200 && res.statusCode <300){

@@ -1,6 +1,9 @@
 import axios from "axios"
+import { useSelector } from "react-redux"
 
 const baseURL="http://localhost:8080/api/v1"
+
+//Admin API
 
 export const AdminVerify=async(values)=>{
     try {
@@ -57,6 +60,8 @@ export const VolunteerDataFetchAdmin=async()=>{
         return error.response.data;
     }
 }
+
+//NGO API
 
 export const NgoOtpSend=async(values)=>{
     try {
@@ -123,6 +128,26 @@ export const NgoVerify=async(values)=>{
         return error.response.data;
     }
 }
+
+export const NGODashboardData=async(values)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Ngo/profile`,{headers:values})
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+export const NGOCreateEvent=async(values,token)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/CreateEvent`,values,{headers:token})
+        return res.data;
+    } catch (error) {
+        return error.response.data;
+    }
+}
+
+//Volunteers API
 
 export const VolunteerOtpSend=async(values)=>{
     try {
