@@ -3,14 +3,14 @@ import EventCard from './EventCard';
 import { CalendarX } from "lucide-react"
 
 interface Event {
-    id: number
+    event_id: number
     name: string
-    Description: string
+    description: string
     address: string
     city: string
     Status: string
     lastDateToRegister: string
-    EventDate: string
+    eventDate: string
     volunteerRequestList: any[]
     eventVolunteer: EventVolunteer[]
   }
@@ -32,7 +32,7 @@ const EventSection = ({ title, events, highlight }: { title: string; events: Eve
   return (
     <motion.div variants={fadeInUp}>
       <h2 className="text-3xl font-bold mb-6 text-blue-600">{title}</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {events.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -50,7 +50,7 @@ const EventSection = ({ title, events, highlight }: { title: string; events: Eve
           </motion.div>
         )}
         {events.map((event) => (
-          <EventCard key={event.id} event={event} highlight={highlight} />
+          <EventCard key={event.event_id} event={event} highlight={highlight} />
         ))}
       </div>
     </motion.div>

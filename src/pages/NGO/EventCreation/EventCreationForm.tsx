@@ -1,4 +1,3 @@
-"use client"
 import { Formik, Form, Field, ErrorMessage } from "formik"
 import * as Yup from "yup"
 import { motion } from "framer-motion"
@@ -12,24 +11,24 @@ import toast from "react-hot-toast"
 
 const validationSchema = Yup.object().shape({
     name: Yup.string().required("Event name is required"),
-    Description: Yup.string().required("Event description is required"),
+    description: Yup.string().required("Event description is required"),
     address: Yup.string().required("Event address is required"),
     city: Yup.string().required("City is required"),
     lastDateToRegister: Yup.date()
         .required("Registration end date is required")
         .min(new Date(Date.now() + 86400000), "Registration end date must be at least one day from today"),
-    EventDate: Yup.date()
+    eventDate: Yup.date()
         .required("Event date is required")
         .min(Yup.ref("lastDateToRegister"), "Event date must be after the registration end date"),
 })
 
 const initialValues = {
     name: "",
-    Description: "",
+    description: "",
     address: "",
     city: "",
     lastDateToRegister: "",
-    EventDate: "",
+    eventDate: "",
 }
 
 const fadeInUp = {
@@ -55,15 +54,16 @@ const EventCreationForm = () => {
             parseISO(values.lastDateToRegister), 
             "dd-MM-yyyy HH:mm" 
         );
-        const formattedEventDate = format(
+        const formattedeventDate = format(
             parseISO(values.lastDateToRegister), 
             "dd-MM-yyyy HH:mm"
         );
+        
     
         const payload = {
             ...values,
             lastDateToRegister: formattedLastDateToRegister, 
-            EventDate:formattedEventDate,
+            eventDate:formattedeventDate,
         };
         console.log(payload);
         
@@ -72,7 +72,7 @@ const EventCreationForm = () => {
         dispatch(setLoading(false))
 
         if(res.statusCode >=200 && res.statusCode <300){
-            toast.success("Login Successful")
+            toast.success("Event created successfully")
             setSubmitting(false)
             navigate("/NGO/Profile")
         }else{
@@ -123,20 +123,20 @@ const EventCreationForm = () => {
                                     </motion.div>
 
                                     <motion.div variants={fadeInUp}>
-                                        <label htmlFor="Description" className="block text-sm font-medium text-gray-700">
+                                        <label htmlFor="description" className="block text-sm font-medium text-gray-700">
                                             Description
                                         </label>
                                         <div className="mt-1">
                                             <Field
                                                 as="textarea"
-                                                name="Description"
-                                                id="Description"
+                                                name="description"
+                                                id="description"
                                                 rows={3}
                                                 className={`${inputClasses} resize-none`}
                                                 placeholder="Describe your event"
                                             />
                                         </div>
-                                        <ErrorMessage name="Description" component="div" className="mt-1 text-sm text-red-600" />
+                                        <ErrorMessage name="description" component="div" className="mt-1 text-sm text-red-600" />
                                     </motion.div>
 
                                     <motion.div variants={fadeInUp}>
@@ -187,13 +187,13 @@ const EventCreationForm = () => {
                                     </motion.div>
 
                                     <motion.div variants={fadeInUp}>
-                                        <label htmlFor="EventDate" className="block text-sm font-medium text-gray-700">
+                                        <label htmlFor="eventDate" className="block text-sm font-medium text-gray-700">
                                             Event Date
                                         </label>
                                         <div className="mt-1 relative rounded-md shadow-sm">
-                                            <Field type="datetime-local" name="EventDate" id="EventDate" className={inputClasses} />
+                                            <Field type="datetime-local" name="eventDate" id="eventDate" className={inputClasses} />
                                         </div>
-                                        <ErrorMessage name="EventDate" component="div" className="mt-1 text-sm text-red-600" />
+                                        <ErrorMessage name="eventDate" component="div" className="mt-1 text-sm text-red-600" />
                                     </motion.div>
 
                                     <motion.div variants={fadeInUp}>

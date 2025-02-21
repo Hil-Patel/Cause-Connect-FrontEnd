@@ -1,29 +1,32 @@
-import {CalendarDays,User,ChevronRight} from "lucide-react"
+import { CalendarDays, User, ChevronRight, Clock } from "lucide-react"
 import { motion } from 'framer-motion';
 import InfoItem from './InfoItem';
 import RegistrationCountdown from './RegistrationCountdown';
+import { useNavigate } from "react-router-dom";
 
 interface Event {
-    id: number
-    name: string
-    Description: string
-    address: string
-    city: string
-    Status: string
-    lastDateToRegister: string
-    EventDate: string
-    volunteerRequestList: any[]
-    eventVolunteer: EventVolunteer[]
-  }
-  
+  event_id
+  : number
+  name: string
+  description: string
+  address: string
+  city: string
+  Status: string
+  lastDateToRegister: string
+  eventDate: string
+  volunteerRequestList: any[]
+  eventVolunteer: EventVolunteer[]
+}
+
 interface EventVolunteer {
-    id: number
-    task: string
-    volunteer: any
-    event: Event
-  }
+  id: number
+  task: string
+  volunteer: any
+  event: Event
+}
 
 const EventCard = ({ event, highlight }: { event: Event; highlight: boolean }) => {
+  const navigate=useNavigate();
   return (
     <motion.div
       whileHover={{ scale: 1.03 }}
@@ -38,20 +41,25 @@ const EventCard = ({ event, highlight }: { event: Event; highlight: boolean }) =
         )}
         <h3 className="text-xl font-semibold mb-2 text-gray-800">{event.name}</h3>
         <p className="text-gray-600 mb-4">{event.city}</p>
-        <p className="mb-4 text-gray-700 flex-grow">{event.Description}</p>
-        <InfoItem icon={<CalendarDays className="w-4 h-4" />} label="Event Date" value={event.EventDate} />
+        <p className="mb-4 text-gray-700 flex-grow">{event.description}</p>
+        <InfoItem icon={<CalendarDays className="w-4 h-4" />} label="Event Date" value={event.eventDate} />
         <InfoItem
           icon={<User className="w-4 h-4" />}
           label="Volunteers"
           value={event.eventVolunteer.length.toString()}
         />
+        <InfoItem
+          icon={<Clock className="w-4 h-4" />}
+          label="Pending Requests"
+          value={event.volunteerRequestList.length.toString()}
+        />
         {highlight && <RegistrationCountdown lastDate={event.lastDateToRegister} />}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className={`mt-4 ${
-            highlight ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 hover:bg-gray-600"
-          } text-white font-bold py-2 px-4 rounded-full inline-flex items-center justify-center transition-colors duration-300`}
+          className={`mt-4 ${highlight ? "bg-blue-500 hover:bg-blue-600" : "bg-gray-500 hover:bg-gray-600"
+            } text-white font-bold py-2 px-4 rounded-full inline-flex items-center justify-center transition-colors duration-300`}
+          onClick={()=>{navigate(`/NGO/Event/${event.event_id}`)}}
         >
           View Details
           <ChevronRight className="ml-2 h-4 w-4" />

@@ -17,14 +17,13 @@ export const Navbar = ({ isLoggedIn, userType }) => {
         dispatch(setLoggedOut("false"))
                 
                 setTimeout(()=>{
-                    console.log(localStorage.getItem("loggedIn"));
                     navigate("/")
 
                 },1000)
     }
 
     return (
-        <nav className="bg-white border-b sticky top-0 z-[1000]">
+        <nav className="bg-white border-b sticky top-0 z-10">
             <div className=" px-6">
                 <div className="flex justify-between items-center py-2">
 
@@ -67,7 +66,7 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/#footer"
+                                        to="/Volunteer/Events"
                                         className="text-black hover:text-blue-500"
                                     >
                                         Events
@@ -89,14 +88,6 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                             className="text-black hover:text-blue-500"
                                         >
                                             Dashboard
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            to="/#footer"
-                                            className="text-black hover:text-blue-500"
-                                        >
-                                            Upcoming Events
                                         </NavLink>
                                     </li>
                                     <li>
@@ -204,7 +195,7 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                 </li>
                                 <li>
                                     <NavLink
-                                        to="/#footer"
+                                        to="/Volunteer/Events"
                                         className="text-black hover:text-blue-500"
                                     >
                                         Events
@@ -226,14 +217,6 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                             className="text-black hover:text-blue-500"
                                         >
                                             Dashboard
-                                        </NavLink>
-                                    </li>
-                                    <li>
-                                        <NavLink
-                                            to="/#footer"
-                                            className="text-black hover:text-blue-500"
-                                        >
-                                            Upcoming Events
                                         </NavLink>
                                     </li>
                                     <li>

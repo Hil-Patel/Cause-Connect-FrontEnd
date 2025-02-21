@@ -21,3 +21,28 @@
       transform: rotate(360deg);
     }
   } 
+  
+  @keyframes gradient {
+    0% {
+      background-position: 0% 0;
+    }
+    20% { 
+      background-position: 0% 0;
+    }
+    50% { 
+      background-position: 100% 0;
+    }
+    70% { 
+      background-position: 100% 0;
+    }
+    100% { 
+      background-position: 0% 0;
+    }
+  }
+  
+  .animate-gradient {
+    animation: gradient 10s ease infinite;
+    background-size: 200% 100%;
+    background-image: linear-gradient(to right, white, rgb(159, 195, 241), white);
+  }
+  

@@ -38,8 +38,6 @@ const NGODashboard = () => {
     
     if (res.statusCode >= 200 && res.statusCode < 300) {
       setNgoData(res.data)
-      console.log(res.data);
-      
     }
     else {
       toast.error(res.message)

@@ -19,6 +19,8 @@ import LoginAdmin from '../pages/Admin/LoginAdmin'
 import ApprovedNgo from '../pages/Admin/ApprovedNgo/ApprovedNgo'
 import VolunteerListForAdmin from '../pages/Admin/Volunteer/VolunteerListForAdmin'
 import EventCreationForm from '../pages/NGO/EventCreation/EventCreationForm'
+import EventsToVolunteer from '../pages/Volunteer/EventsToVolunteer/EventsToVolunteer'
+import EventPage from '../pages/NGO/Event/EventPage'
 
 export const AppRoutes = () => {
   const IsLoggedin = useSelector((state)=>state.loggedIn.IsLoggedin);
@@ -73,6 +75,7 @@ export const AppRoutes = () => {
             <Route path='/NGO' >
               <Route path='dashboard' element={<NGODashboard />} />
               <Route path='Create-Event' element={<EventCreationForm/>} />
+              <Route path='Event/:id' element={<EventPage/>}/>
             </Route>
           </Route>
         ) :
@@ -87,6 +90,7 @@ export const AppRoutes = () => {
   
               <Route path='/Volunteer'>
                 <Route path='dashboard' element={<VolunteerDashboard />} />
+                <Route path='Events' element={<EventsToVolunteer/>}/>
               </Route>
   
             </Route>
