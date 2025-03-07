@@ -156,6 +156,24 @@ export const NGOFetchEventDetails=async(id,token)=>{
     }
 }
 
+export const NGOAcceptVolunteerRequest=async(values,token)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/AssignTask`,values,{headers:token});
+        return res.data;
+    } catch (error){
+        return error.response.data;
+    }
+}
+
+export const NGODeclineVolunteerRequest=async(values,token)=>{
+    try {
+        const res=await axios.post(`${baseURL}/Ngo/DeclineRequest`,values,{headers:token});
+        return res.data;
+    } catch (error){
+        return error.response.data;
+    }
+}
+
 //Volunteers API
 
 export const VolunteerOtpSend=async(values)=>{
@@ -217,6 +235,15 @@ export const VolunteerFetchEvents=async(token)=>{
 export const VolunteerRequestToJoinEvents=async(values,token)=>{
     try {
         const res=await axios.post(`${baseURL}/Volunteer/JoinRequest`,values,{headers:token});
+        return res.data;
+    } catch (error){
+        return error.response.data;
+    }
+}
+
+export const VolunteerDashboardData=async(token)=>{
+    try {
+        const res=await axios.get(`${baseURL}/Volunteer/Dashboard`,{headers:token});
         return res.data;
     } catch (error){
         return error.response.data;

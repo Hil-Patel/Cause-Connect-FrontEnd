@@ -43,6 +43,8 @@
   .animate-gradient {
     animation: gradient 10s ease infinite;
     background-size: 200% 100%;
-    background-image: linear-gradient(to right, white, rgb(159, 195, 241), white);
+    background-image: linear-gradient(to right, white, rgb(181, 212, 253), white);
   }
+
+  
   

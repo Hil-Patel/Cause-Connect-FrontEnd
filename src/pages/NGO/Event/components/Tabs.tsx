@@ -73,6 +73,7 @@ export function Tabs({ activeTab, event, highlightedCard, onTabChange, onAccept,
                   highlightedCard={-1}
                   onAccept={() => {}}
                   onDecline={() => {}}
+                  isAcceptedVolunteer={true}
                 />
               ))
             )}
@@ -81,4 +82,5 @@ export function Tabs({ activeTab, event, highlightedCard, onTabChange, onAccept,
       </div>
     </div>
   );
+
 }

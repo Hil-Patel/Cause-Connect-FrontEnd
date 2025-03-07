@@ -16,7 +16,7 @@ const validationSchema = Yup.object().shape({
     city: Yup.string().required("City is required"),
     lastDateToRegister: Yup.date()
         .required("Registration end date is required")
-        .min(new Date(Date.now() + 86400000), "Registration end date must be at least one day from today"),
+        .min(new Date(Date.now() + 86400000), "Registration end date must be at least 24 hour from now"),
     eventDate: Yup.date()
         .required("Event date is required")
         .min(Yup.ref("lastDateToRegister"), "Event date must be after the registration end date"),

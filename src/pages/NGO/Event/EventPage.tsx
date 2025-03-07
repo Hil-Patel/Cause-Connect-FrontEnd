@@ -5,11 +5,12 @@ import { Tabs } from './components/Tabs';
 import { AcceptModal } from './components/AcceptModal';
 import { DeclineModal } from './components/DeclineModal';
 import { Event, TimeLeft, Volunteer } from './types';
-import { NGOFetchEventDetails } from "../../../ApiEndPoints/ApiCalls"
+import { NGOFetchEventDetails ,NGOAcceptVolunteerRequest,NGODeclineVolunteerRequest} from "../../../ApiEndPoints/ApiCalls"
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { setLoading } from '../../../features/loadingSlice';
+import { RootState } from '@reduxjs/toolkit/query';
 
 const EventPage = () => {
   const [activeTab, setActiveTab] = useState<'requests' | 'volunteers'>('requests');
@@ -129,28 +130,60 @@ const EventPage = () => {
     setErrors({ task: '', declineReason: '' });
   };
 
-  const confirmAccept = () => {
+  const confirmAccept = async() => {
     if (!task.trim()) {
       setErrors(prev => ({ ...prev, task: 'Please assign a task to the volunteer' }));
       return;
     }
-    console.log('Accepted volunteer:', selectedVolunteer, 'with task:', task);
     setIsAcceptModalOpen(false);
+    setErrors({ task: '', declineReason: '' });
+
+    dispatch(setLoading(true));
+    console.log(loading);
+    
+    const res=await NGOAcceptVolunteerRequest({eventId:event.event_id,volunteerEmail:selectedVolunteer?.email,task:task},JSON.parse(Token))
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      setEvent(res.data)
+      toast.success(res.message)
+    }
+    else {
+      console.log(res);
+      toast.error(res.message)
+    }
+    console.log(loading);
+    
+    dispatch(setLoading(false))
+
     setTask('');
     setSelectedVolunteer(null);
-    setErrors({ task: '', declineReason: '' });
+
   };
 
-  const confirmDecline = () => {
+  const confirmDecline = async() => {
     if (!declineReason.trim()) {
       setErrors(prev => ({ ...prev, declineReason: 'Please provide a reason for declining' }));
       return;
     }
     console.log('Declined volunteer:', selectedVolunteer, 'with reason:', declineReason);
     setIsDeclineModalOpen(false);
+    setErrors({ task: '', declineReason: '' });
+
+    dispatch(setLoading(true));
+
+    const res=await NGODeclineVolunteerRequest({eventId:event.event_id,volunteerEmail:selectedVolunteer?.email,task:declineReason},JSON.parse(Token))
+    if (res.statusCode >= 200 && res.statusCode < 300) {
+      setEvent(res.data)
+      toast.success(res.message)
+    }
+    else {
+      console.log(res);
+      toast.error(res.message)
+    }
+    
+    dispatch(setLoading(false))
+
     setDeclineReason('');
     setSelectedVolunteer(null);
-    setErrors({ task: '', declineReason: '' });
   };
 
   const formatTimeLeft = (time: TimeLeft) => {
