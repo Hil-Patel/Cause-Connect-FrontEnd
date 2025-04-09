@@ -41,11 +41,11 @@ const ApprovedNgoCards = ({ ngo }) => {
         <div className="w-full bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
             <div className="p-4 cursor-pointer flex items-center justify-between" onClick={() => setIsExpanded(!isExpanded)}>
                 <div className="flex items-center space-x-4">
-                    <div className="relative w-24 h-24">
+                    <div className="relative ">
                         <img
                             src={`${baseURL}${ngo.profilePic}`}
                             alt="NGO Profile"
-                            className="rounded-full object-cover w-full h-full"
+                            className="rounded object-cover w-full h-full"
                         />
                     </div>
                     <div>
@@ -145,13 +145,13 @@ const ApprovedNgoCards = ({ ngo }) => {
                                     </a>
                                 </div>
                             </div>
-                            <div className="mt-8 flex justify-end gap-4">
+                            {/* <div className="mt-8 flex justify-end gap-4">
                                 <button
                                     className="px-6 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                                 >
                                     View More
                                 </button>
-                            </div>
+                            </div> */}
                         </div>
                     </motion.div>
                 )}

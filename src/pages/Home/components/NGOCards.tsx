@@ -15,7 +15,7 @@ export const NGOCards = () => {
           name: "Green Earth Initiative",
           city: "Delhi",
           members: 85,
-          profilePhoto: "https://th.bing.com/th/id/OIP.D7spWWMr2Gh2JzBiSD2BiQHaEK?w=1280&h=719&rs=1&pid=ImgDetMain",
+          profilePhoto: "https://thumbs.dreamstime.com/b/green-earth-29576149.jpg",
           aim: "Promoting environmental sustainability.",
         },
         {

@@ -72,14 +72,14 @@ export const Navbar = ({ isLoggedIn, userType }) => {
                                         Events
                                     </NavLink>
                                 </li>
-                                <li>
+                                {/* <li>
                                     <NavLink
                                         to="/#footer"
                                         className="text-black hover:text-blue-500"
                                     >
                                         NGOs
                                     </NavLink>
-                                </li>
+                                </li> */}
                             </> : userType == "NGO" ?
                                 <>
                                     <li>

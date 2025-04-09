@@ -44,11 +44,11 @@ const NGOCard = ({ ngo, onApprove, onDisapprove }) => {
     <div className="w-full bg-white rounded-lg shadow-sm overflow-hidden border border-gray-100">
       <div className="p-4 cursor-pointer flex items-center justify-between" onClick={() => setIsExpanded(!isExpanded)}>
         <div className="flex items-center space-x-4">
-          <div className="relative w-24 h-24">
+          <div className="relative  ">
             <img
               src={`${baseURL}${ngo.profilePicUrl}`}
               alt="NGO Profile"
-              className="rounded-full object-cover w-full h-full"
+              className="rounded object-cover w-full h-full"
             />
           </div>
           <div>

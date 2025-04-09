@@ -1,5 +1,4 @@
 import axios from "axios"
-import { useSelector } from "react-redux"
 
 const baseURL="http://localhost:8080/api/v1"
 
